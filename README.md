@@ -1,14 +1,14 @@
 # topicsLab
 ### 作業進捗
 * 月曜日分
-'''
+```
 1　　齋藤
 2	中野さん
 3,5	 山口さん
 4,6,7 岩井さん
-'''
+```
 ### 環境設定コマンド
-'''
+```
 $cd <任意の場所>
 $git clone 
 $docker-compose up --build -d
@@ -19,7 +19,7 @@ $docker-compose exec api /bin/bash
 $docker-compose exec front /bin/bash
     $yarn serve
     $control+c
-'''
+```
 ### 開発開始コマンド
 ```
 $git pull origin feature
