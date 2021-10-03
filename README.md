@@ -29,10 +29,10 @@ $docker-compose exec front /bin/bash
     $control+c
 ```
 ### 開発終了コマンド
-'''
+```
 $exit
 $docker-compose stop
 $git add .
 $git commit -m "<任意のコメント>"
 $git push origin feature
-'''
+```
