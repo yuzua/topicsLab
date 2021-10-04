@@ -53,6 +53,7 @@ export default {
               if (res.status === 200) {
                 console.log('ログイン成功')
                 localStorage.setItem('authenticated', 'true')
+                this.$router.push('/')
               } else {
                 this.message = 'ログインに失敗しました。'
               }
@@ -69,6 +70,30 @@ export default {
   }
 }
 </script>
+
+axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.post('/api/register', {
+            name: this.name,
+            email: this.email,
+            password: this.password
+          })
+            .then((res) => {
+              if (res.status === 201) {
+                alert('ユーザー登録成功')
+                console.log(this.$router.push('http://localhost:8080/login'))
+              } else {
+                this.message = 'ユーザー登録に失敗しました。'
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              this.message = 'ユーザー登録に失敗しました。'
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
 
 <style lang="scss" scoped>
 .p-card-content {
