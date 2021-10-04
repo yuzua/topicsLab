@@ -2,7 +2,7 @@
   <div>
     <Card>
       <template #title>
-        Login
+        ログイン
       </template>
       <template #content>
         <div class="fields">
@@ -17,7 +17,10 @@
         </div>
         <span class="message">{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Login" v-on:click="login" />
+          <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
+        </div>
+        <div class="p-field">
+          <a href="http://localhost:8080/register" class="p-button" >ユーザー登録</a>
         </div>
       </template>
     </Card>
@@ -37,6 +40,7 @@ export default {
       message: ''
     }
   },
+
   methods: {
     login () {
       axios.get('/sanctum/csrf-cookie')
