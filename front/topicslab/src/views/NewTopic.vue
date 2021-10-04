@@ -88,7 +88,7 @@ export default {
   display: block;
   width: 100%;
 
-  span {
+  .messages {
     color: red;
   }
 }
