@@ -22,7 +22,7 @@ $docker-compose exec front /bin/bash
 ```
 ### 開発開始コマンド
 ```
-$git pull origin feature
+$git pull remote feature
 $docker-compose up
 $docker-compose exec front /bin/bash
     $yarn serve
