@@ -10,7 +10,7 @@
       <template #footer>
         <Button label="トピックを作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
-        <Button label="取り消し" class="p-button-danger" v-on:click="withdraw" />
+        <Button label="アカウント削除" class="p-button-danger" v-on:click="withdraw" />
       </template>
     </Card>
   </div>
