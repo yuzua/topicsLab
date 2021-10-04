@@ -8,6 +8,9 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+        <!-- いいねボタンを表示 -->
+        <Button label="いいね"  iconPos="right" class="p-button p-component p-button-icon-only p-button-rounded p-button-help p-button-outlined pi pi-heart" type="button"/>
+
       </template>
       <template #footer>
         <span>
