@@ -43,15 +43,16 @@ export default {
     }
   },
   mounted () {
+    // ログインページ遷移
+    if (localStorage.getItem('authenticated') !== 'true') {
+      this.$router.push('/login')
+      return
+    }
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
     }
     this.getTopic()
-    // ログインページ遷移
-    if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('/login')
-    }
   },
   methods: {
     getTopic () {
