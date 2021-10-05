@@ -109,6 +109,6 @@ export default {
 }
 
 .messages {
-    color: red;
+  color: red;
 }
 </style>

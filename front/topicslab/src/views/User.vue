@@ -5,11 +5,22 @@
         {{user.name}}
       </template>
     </Card>
+    <template>
+      <TabView :activeIndex="activeIndex">
+        <TabPanel header="トピック">
+        </TabPanel>
+        <TabPanel header="コメント">
+        </TabPanel>
+      </TabView>
+    </template>
   </div>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'user',
