@@ -21,15 +21,27 @@
       </div>
     </template>
   </Card>
+  <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message.submit}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+  </Dialog>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'NewTopic',
+  components: {
+    Dialog
+  },
   data () {
     return {
+      display: false,
       title: '',
       body: '',
       messages: {
@@ -45,6 +57,9 @@ export default {
     }
   },
   methods: {
+    closeBasic () {
+      this.display = false
+    },
     submit () {
       const title = this.title.trim()
       if (!title) {
@@ -68,15 +83,19 @@ export default {
                 this.$router.push(`/topic/${res.data.id}`)
               } else {
                 this.messages.submit = '送信に失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
               console.log(err)
               this.messages.submit = '送信に失敗しました。'
+              this.display = true
             })
         })
         .catch((err) => {
           alert(err)
+          this.messages.submit = 'エラーが発生しました。'
+          this.display = true
         })
     }
   }
@@ -89,7 +108,7 @@ export default {
   width: 100%;
 }
 
-  .messages {
+.messages {
     color: red;
 }
 </style>
