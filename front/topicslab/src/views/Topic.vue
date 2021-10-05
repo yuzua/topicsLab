@@ -48,11 +48,10 @@ export default {
       alert('不正なIDです。')
     }
     this.getTopic()
+    // ログインページ遷移
     if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
-      return
+      this.$router.push('/login')
     }
-    this.getUser()
   },
   methods: {
     getTopic () {
