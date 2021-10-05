@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #content>
         <div class="p-field">
@@ -16,19 +23,27 @@
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'CommentForm',
+  components: {
+    Dialog
+  },
   props: {
     topicId: Number
   },
   data () {
     return {
+      display: false,
       comment: '',
       message: ''
     }
   },
   methods: {
+    closeBasic () {
+      this.display = false
+    },
     submit () {
       const comment = this.comment.trim()
       if (!comment) {
@@ -48,11 +63,13 @@ export default {
                 this.$emit('sentComment', res.data)
               } else {
                 this.message = '送信に失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
               console.log(err)
               this.message = '送信に失敗しました。'
+              this.display = true
             })
         })
         .catch((err) => {
