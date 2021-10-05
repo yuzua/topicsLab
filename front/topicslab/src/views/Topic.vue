@@ -50,9 +50,7 @@ export default {
     this.getTopic()
     if (localStorage.getItem('authenticated') !== 'true') {
       this.$router.push('login')
-      return
     }
-    this.getUser()
   },
   methods: {
     getTopic () {
@@ -91,5 +89,10 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+
+.p-button {
+  display: flex;
+  margin-top: 20px;
 }
 </style>

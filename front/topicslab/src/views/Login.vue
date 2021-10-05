@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #title>
         ログイン
@@ -15,7 +22,7 @@
             <InputText id="password" type="password" v-model="password" />
           </div>
         </div>
-        <span class="message">{{message}}</span>
+        <!-- <span class="message">{{message}}</span> -->
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
@@ -29,11 +36,16 @@
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Login',
+  components: {
+    Dialog
+  },
   data () {
     return {
+      display: false,
       email: '',
       password: '',
       error: false,
@@ -42,6 +54,9 @@ export default {
   },
 
   methods: {
+    closeBasic () {
+      this.display = false
+    },
     login () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
@@ -56,11 +71,13 @@ export default {
                 this.$router.push('/')
               } else {
                 this.message = 'ログインに失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
               console.log(err)
               this.message = 'ログインに失敗しました。'
+              this.display = true
             })
         })
         .catch((err) => {
@@ -70,30 +87,6 @@ export default {
   }
 }
 </script>
-
-axios.get('/sanctum/csrf-cookie')
-        .then(() => {
-          axios.post('/api/register', {
-            name: this.name,
-            email: this.email,
-            password: this.password
-          })
-            .then((res) => {
-              if (res.status === 201) {
-                alert('ユーザー登録成功')
-                console.log(this.$router.push('http://localhost:8080/login'))
-              } else {
-                this.message = 'ユーザー登録に失敗しました。'
-              }
-            })
-            .catch((err) => {
-              console.log(err)
-              this.message = 'ユーザー登録に失敗しました。'
-            })
-        })
-        .catch((err) => {
-          alert(err)
-        })
 
 <style lang="scss" scoped>
 .p-card-content {
