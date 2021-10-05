@@ -90,4 +90,9 @@ export default {
   text-align: right;
   display: block;
 }
+
+.p-button {
+  display: flex;
+  margin-top: 20px;
+}
 </style>

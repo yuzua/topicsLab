@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
+
+
 class UserController extends Controller
 {
     /**
@@ -51,9 +53,14 @@ class UserController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
+    // public function show(User $user)
+    // {
+    //     return $user;
+    // }
+
     public function show(User $user)
     {
-        return $user;
+        return User::with('topics', 'comments')->find($user->id);
     }
 
     /**
