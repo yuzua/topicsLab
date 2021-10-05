@@ -53,6 +53,9 @@ export default {
       alert('不正なIDです。')
     }
     this.getTopic()
+    if (localStorage.getItem('authenticated') !== 'true') {
+      this.$router.push('/login')
+    }
   },
   methods: {
     getTopic () {
@@ -91,5 +94,10 @@ export default {
 .p-card-footer span {
   text-align: right;
   display: block;
+}
+
+.p-button {
+  display: flex;
+  margin-top: 20px;
 }
 </style>

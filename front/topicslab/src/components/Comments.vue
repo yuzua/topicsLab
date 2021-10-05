@@ -35,4 +35,10 @@ export default {
 .comment-text {
   white-space:pre-wrap;
 }
+
+.p-button {
+  display: flex;
+  margin-top: 20px;
+}
+
 </style>
