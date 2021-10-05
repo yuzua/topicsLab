@@ -7,6 +7,14 @@
       <template #content>
         {{user.name}}
       </template>
+      <template>
+        <TabView :activeIndex="activeIndex">
+          <TabPanel header="トピック">
+          </TabPanel>
+          <TabPanel header="コメント">
+          </TabPanel>
+        </TabView>
+      </template>
       <template #footer>
         <Button label="トピックを作成" v-on:click="toNewTopic" />
         <Button label="ログアウト" class="p-button-warning" v-on:click="logout" />
@@ -18,6 +26,9 @@
 
 <script>
 import axios from '@/supports/axios'
+
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'Userself',
