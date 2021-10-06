@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- 21番　ダイアログの処理 -->
     <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
-            <p>{{message.submit}}</p>
+            <p>{{message}}</p>
             <template #footer>
                 <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
                 <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
@@ -37,15 +38,18 @@
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Register',
+  // 21番 ダイアログ
   components: {
     Dialog
   },
   data () {
     return {
+      // 21番 ダイアログ
       display: false,
       name: '',
       email: '',
@@ -54,6 +58,7 @@ export default {
     }
   },
   methods: {
+    // 21番 ダイアログ
     closeBasic () {
       this.display = false
     },
@@ -78,18 +83,23 @@ export default {
                 alert('ユーザー登録成功')
                 this.$router.push('/login')
               } else {
+                // 21番 ダイアログ
                 this.message = 'ユーザー登録に失敗しました。'
                 this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
+              // 21番 ダイアログ
+              // console.log(err)
               this.message = 'ユーザー登録に失敗しました。'
               this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     }
   }

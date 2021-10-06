@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- 21番　ダイアログの処理 -->
     <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
-            <p>{{message.submit}}</p>
+            <p>{{message}}</p>
             <template #footer>
                 <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
                 <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
@@ -34,10 +35,12 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+// 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Topic',
+  // 21番 ダイアログ
   components: {
     Comments,
     CommentForm,
@@ -45,10 +48,12 @@ export default {
   },
   data () {
     return {
+      // 21番 ダイアログ
       display: false,
       topic: {},
       user: {},
       comments: [],
+      message: '',
       id: null
     }
   },
@@ -65,6 +70,7 @@ export default {
     this.getTopic()
   },
   methods: {
+    // 21番 ダイアログ
     closeBasic () {
       this.display = false
     },
@@ -79,15 +85,24 @@ export default {
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
               } else {
-                console.log('取得失敗')
+                // console.log('取得失敗')
+                // 21番 ダイアログ
+                this.message = '取得失敗'
+                this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
+              // console.log(err)
+              // 21番 ダイアログ
+              this.message = err
+              this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     },
     receiveComment (comment) {

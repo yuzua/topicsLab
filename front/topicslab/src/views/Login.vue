@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 21番　ダイアログの処理 -->
     <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
             <p>{{message}}</p>
             <template #footer>
@@ -22,7 +23,7 @@
             <InputText id="password" type="password" v-model="password" />
           </div>
         </div>
-        <!-- <span class="message">{{message}}</span> -->
+        <span class="message">{{message}}</span>
         <div class="p-field">
           <Button icon="pi pi-check" label="ログイン" v-on:click="login" />
         </div>
@@ -36,15 +37,18 @@
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Login',
+  // 21番 ダイアログ
   components: {
     Dialog
   },
   data () {
     return {
+      // 21番 ダイアログ
       display: false,
       email: '',
       password: '',
@@ -54,6 +58,7 @@ export default {
   },
 
   methods: {
+    // 21番 ダイアログ
     closeBasic () {
       this.display = false
     },
@@ -70,18 +75,23 @@ export default {
                 localStorage.setItem('authenticated', 'true')
                 this.$router.push('/')
               } else {
+                // 21番 ダイアログ
                 this.message = 'ログインに失敗しました。'
                 this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
-              this.message = 'ログインに失敗しました。'
+              // console.log(err)
+              // 21番 ダイアログ
+              this.message = err
               this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     }
   }
