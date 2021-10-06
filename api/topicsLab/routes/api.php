@@ -33,6 +33,11 @@ Route::post('/logout', [
     'logout'
 ]);
 
+Route::get('/withdraw', [
+    App\Http\Controllers\UserController::class,
+    'destroy'
+]);
+
 Route::get('/topics', [
     App\Http\Controllers\TopicController::class,
     'index'
