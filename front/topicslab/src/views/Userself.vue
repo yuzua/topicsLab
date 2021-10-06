@@ -6,12 +6,12 @@
       </template>
       <template #content>
         {{user.name}}
-      </template>
-      <template>
-        <TabView :activeIndex="activeIndex">
+        <TabView>
           <TabPanel header="トピック">
+            {{user.id}}
           </TabPanel>
           <TabPanel header="コメント">
+            {{user.id}}
           </TabPanel>
         </TabView>
       </template>
@@ -32,9 +32,14 @@ import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'Userself',
+  components: {
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       user: {}
+      data: {}
     }
   },
   mounted () {
@@ -44,6 +49,7 @@ export default {
     }
 
     this.getUser()
+    this.getData()
   },
   methods: {
     toNewTopic () {
@@ -89,8 +95,26 @@ export default {
         .then(() => {
           axios.get('/api/user')
             .then((res) => {
+              console.log(res)
               if (res.status === 200) {
                 this.user = res.data
+              } else {
+                console.log('取得失敗')
+              }
+            })
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    getData () {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get(`/api/user/${this.id}`)
+            .then((res) => {
+              console.log(res)
+              if (res.status === 200) {
+                this.data = res.data
               } else {
                 console.log('取得失敗')
               }

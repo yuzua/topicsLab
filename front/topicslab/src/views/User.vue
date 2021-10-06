@@ -3,16 +3,16 @@
     <Card>
       <template #content>
         {{user.name}}
+        <TabView>
+          <TabPanel header="トピック">
+            topics
+          </TabPanel>
+          <TabPanel header="コメント">
+            comments
+          </TabPanel>
+        </TabView>
       </template>
     </Card>
-    <template>
-      <TabView :activeIndex="activeIndex">
-        <TabPanel header="トピック">
-        </TabPanel>
-        <TabPanel header="コメント">
-        </TabPanel>
-      </TabView>
-    </template>
   </div>
 </template>
 
@@ -24,6 +24,10 @@ import TabPanel from 'primevue/tabpanel'
 
 export default {
   name: 'user',
+  components: {
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       id: null,
