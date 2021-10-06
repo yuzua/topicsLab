@@ -21,7 +21,7 @@
       </div>
     </template>
   </Card>
-  <!-- 21番　ダイアログの処理 -->
+  <!-- 21番ダイアログの処理 -->
   <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
             <p>{{messages.submit}}</p>
             <template #footer>
@@ -95,7 +95,7 @@ export default {
             .catch((err) => {
               // console.log(err)
               // 21番 ダイアログ
-              this.messages.submit = '送信に失敗しました。'
+              this.messages.submit = err
               this.display = true
             })
         })

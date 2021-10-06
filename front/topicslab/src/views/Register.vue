@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 21番　ダイアログの処理 -->
+    <!-- 21番ダイアログの処理 -->
     <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
             <p>{{message}}</p>
             <template #footer>
@@ -91,7 +91,7 @@ export default {
             .catch((err) => {
               // 21番 ダイアログ
               // console.log(err)
-              this.message = 'ユーザー登録に失敗しました。'
+              this.message = err
               this.display = true
             })
         })

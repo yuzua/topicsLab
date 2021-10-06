@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- 21番　ダイアログの処理 -->
     <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
             <p>{{message}}</p>
             <template #footer>
@@ -24,12 +23,10 @@
 
 <script>
 import axios from '@/supports/axios'
-// 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'CommentForm',
-  // 21番 ダイアログ
   components: {
     Dialog
   },
@@ -38,14 +35,12 @@ export default {
   },
   data () {
     return {
-      // 21番 ダイアログ
       display: false,
       comment: '',
       message: ''
     }
   },
   methods: {
-    // 21番 ダイアログ
     closeBasic () {
       this.display = false
     },
@@ -55,7 +50,6 @@ export default {
         this.message = '未記入(空白のみ)は送信できません。'
         return
       }
-
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.post('/api/comment', {
@@ -67,21 +61,16 @@ export default {
                 this.comment = ''
                 this.$emit('sentComment', res.data)
               } else {
-                // 21番 ダイアログ
                 this.message = '送信に失敗しました。'
                 this.display = true
               }
             })
             .catch((err) => {
-              // 21番 ダイアログ
-              // console.log(err)
-              this.message = '送信に失敗しました。'
+              this.message = err
               this.display = true
             })
         })
         .catch((err) => {
-          // alert(err)
-          // 21番 ダイアログ
           this.message = err
           this.display = true
         })
