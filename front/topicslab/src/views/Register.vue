@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message.submit}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #title>
         登録
@@ -30,11 +37,16 @@
 
 <script>
 import axios from '@/supports/axios'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Register',
+  components: {
+    Dialog
+  },
   data () {
     return {
+      display: false,
       name: '',
       email: '',
       password: '',
@@ -42,6 +54,9 @@ export default {
     }
   },
   methods: {
+    closeBasic () {
+      this.display = false
+    },
     register () {
       const name = this.name.trim()
       const email = this.email.trim()
@@ -64,11 +79,13 @@ export default {
                 this.$router.push('/login')
               } else {
                 this.message = 'ユーザー登録に失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
               console.log(err)
               this.message = 'ユーザー登録に失敗しました。'
+              this.display = true
             })
         })
         .catch((err) => {

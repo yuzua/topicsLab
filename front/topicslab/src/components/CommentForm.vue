@@ -74,6 +74,8 @@ export default {
         })
         .catch((err) => {
           alert(err)
+          this.message = err
+          this.display = true
         })
     }
   }

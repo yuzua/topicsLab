@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message.submit}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #title>
         {{topic.title}}
@@ -27,15 +34,18 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Topic',
   components: {
     Comments,
-    CommentForm
+    CommentForm,
+    Dialog
   },
   data () {
     return {
+      display: false,
       topic: {},
       user: {},
       comments: [],
@@ -55,6 +65,9 @@ export default {
     this.getTopic()
   },
   methods: {
+    closeBasic () {
+      this.display = false
+    },
     getTopic () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {

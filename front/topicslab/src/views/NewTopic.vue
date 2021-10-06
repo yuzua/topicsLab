@@ -94,8 +94,6 @@ export default {
         })
         .catch((err) => {
           alert(err)
-          this.messages.submit = 'エラーが発生しました。'
-          this.display = true
         })
     }
   }

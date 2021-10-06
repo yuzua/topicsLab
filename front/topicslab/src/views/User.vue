@@ -19,9 +19,6 @@
 <script>
 import axios from '@/supports/axios'
 
-import TabView from 'primevue/tabview'
-import TabPanel from 'primevue/tabpanel'
-
 export default {
   name: 'user',
   data () {
