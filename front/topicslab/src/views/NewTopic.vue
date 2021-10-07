@@ -21,8 +21,9 @@
       </div>
     </template>
   </Card>
+  <!-- 21番ダイアログの処理 -->
   <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
-            <p>{{message.submit}}</p>
+            <p>{{messages.submit}}</p>
             <template #footer>
                 <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
                 <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
@@ -32,15 +33,18 @@
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
 export default {
   name: 'NewTopic',
+  // 21番 ダイアログ
   components: {
     Dialog
   },
   data () {
     return {
+      // 21番 ダイアログ
       display: false,
       title: '',
       body: '',
@@ -57,6 +61,7 @@ export default {
     }
   },
   methods: {
+    // 21番 ダイアログ
     closeBasic () {
       this.display = false
     },
@@ -82,19 +87,22 @@ export default {
               if (res.status === 201) {
                 this.$router.push(`/topic/${res.data.id}`)
               } else {
+                // 21番 ダイアログ
                 this.messages.submit = '送信に失敗しました。'
                 this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
-              this.messages.submit = '送信に失敗しました。'
+              // console.log(err)
+              // 21番 ダイアログ
+              this.messages.submit = err
               this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
-          this.messages.submit = 'エラーが発生しました。'
+          // alert(err)
+          // 21番 ダイアログ
+          this.messages.submit = err
           this.display = true
         })
     }

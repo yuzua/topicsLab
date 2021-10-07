@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card v-for="topic in topics" :key="topic.id">
         <template #content>
           <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
@@ -16,18 +23,30 @@
 <script>
 import axios from '@/supports/axios'
 import moment from 'moment'
+// 21番 ダイアログのインポート
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'AllTopics',
+  // 21番 ダイアログ
+  components: {
+    Dialog
+  },
   data () {
     return {
-      topics: []
+      topics: [],
+      // 21番 ダイアログ
+      message: ''
     }
   },
   mounted () {
     this.getAllTopics()
   },
   methods: {
+    // 21番 ダイアログ
+    closeBasic () {
+      this.display = false
+    },
     moment: function (date) {
       return moment(date).format('YYYY/MM/DD HH:mm:SS')
     },
@@ -40,12 +59,18 @@ export default {
                 this.topics.splice(0)
                 this.topics.push(...res.data)
               } else {
-                console.log('取得失敗')
+                // console.log('取得失敗')
+                // 21番 ダイアログ
+                this.message = '取得失敗'
+                this.display = true
               }
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     }
   }
