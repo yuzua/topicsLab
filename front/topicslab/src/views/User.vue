@@ -46,7 +46,7 @@ import TabPanel from 'primevue/tabpanel'
 export default {
   name: 'user',
   components: {
-   // 21番 ダイアログ
+  // 21番 ダイアログ
     Dialog,
     TabView,
     TabPanel
