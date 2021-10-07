@@ -16,8 +16,11 @@
         <div class="body-text">
           {{topic.body}}
         </div>
+
+        <!-- いいね数を表示 -->
+        <!-- <span class="like-btn__text">{{ comment.likes_count }}</span> -->
         <!-- いいねボタンを表示 -->
-        <Button label="いいね"  iconPos="right" class="p-button p-component p-button-icon-only p-button-rounded p-button-help p-button-outlined pi pi-heart" type="button"/>
+        <Button @click="favorite()" label="いいね"  iconPos="right" class="p-button p-component p-button-icon-only p-button-rounded p-button-help p-button-outlined pi pi-heart" type="button"/>
 
       </template>
       <template #footer>
@@ -35,6 +38,7 @@
 import axios from '@/supports/axios'
 import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
+
 // 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
@@ -43,8 +47,7 @@ export default {
   // 21番 ダイアログ
   components: {
     Comments,
-    CommentForm,
-    Dialog
+    CommentForm
   },
   data () {
     return {
@@ -58,16 +61,16 @@ export default {
     }
   },
   mounted () {
-    // ログインページ遷移
-    if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('/login')
-      return
-    }
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
     }
     this.getTopic()
+    if (localStorage.getItem('authenticated') !== 'true') {
+      this.$router.push('login')
+      // return
+    }
+    // this.getUser()
   },
   methods: {
     // 21番 ダイアログ
