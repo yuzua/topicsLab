@@ -52,13 +52,9 @@ export default {
   // 21番 ダイアログ
   components: {
     Comments,
-<<<<<<< HEAD
     CommentForm,
     Dialog,
     Skeleton
-=======
-    CommentForm
->>>>>>> 03d1a873a093d6f2404300eebac7de9aa24b9aa2
   },
   data () {
     return {
