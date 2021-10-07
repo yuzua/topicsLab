@@ -94,12 +94,15 @@ export default {
         })
     },
     withdraw () {
-      /*      axios.get('/sanctum/csrf-cookie')
+      axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.post('/api/logout')
+          axios.get('/api/withdraw')
+          // /api/withdrawに接続成功時
             .then(res => {
               console.log(res)
-              localStorage.setItem('authenticated', 'false')
+              // キー：'authenticated', バリュー：'false'を削除
+              localStorage.removeItem('authenticated', 'false')
+              // urlをホーム画面へ遷移
               this.$router.push('/')
             })
             .catch(err => {
@@ -108,8 +111,7 @@ export default {
         })
         .catch((err) => {
           alert(err)
-        }) */
-
+        })
     },
     getUser () {
       axios.get('/sanctum/csrf-cookie')
