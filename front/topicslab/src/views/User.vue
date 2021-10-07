@@ -13,25 +13,14 @@
         {{user.name}}
         <TabView>
           <TabPanel header="トピック">
-            topics
+            {{this.id}}
           </TabPanel>
           <TabPanel header="コメント">
-            comments
+            {{user.id}}
           </TabPanel>
         </TabView>
       </template>
     </Card>
-    <template>
-      <TabView :activeIndex="activeIndex">
-        <TabPanel header="トピック">
-
-          <!-- {{topic.title}} -->
-
-        </TabPanel>
-        <TabPanel header="コメント">
-        </TabPanel>
-      </TabView>
-    </template>
   </div>
 </template>
 

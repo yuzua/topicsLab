@@ -16,10 +16,9 @@
         {{user.name}}
         <TabView>
           <TabPanel header="トピック">
-            {{user.id}}
+           u
           </TabPanel>
           <TabPanel header="コメント">
-            {{user.id}}
           </TabPanel>
         </TabView>
       </template>
@@ -52,6 +51,7 @@ export default {
     return {
       user: {},
       data: {},
+      display: false,
       // 21番 ダイアログ
       message: ''
     }
@@ -63,7 +63,6 @@ export default {
     }
 
     this.getUser()
-    this.getData()
   },
   methods: {
     // 21番 ダイアログ
@@ -131,29 +130,25 @@ export default {
                 this.display = true
               }
             })
-        })
-        .catch((err) => {
-          // alert(err)
-          // 21番 ダイアログ
-          this.message = err
-          this.display = true
-        })
-    },
-    getData () {
-      axios.get('/sanctum/csrf-cookie')
-        .then(() => {
-          axios.get(`/api/user/${this.id}`)
+
+          /* axios.get(`/api/user/${this.user.id}`)
             .then((res) => {
               console.log(res)
               if (res.status === 200) {
                 this.data = res.data
               } else {
-                console.log('取得失敗')
+                // console.log('取得失敗')
+                // 21番 ダイアログ
+                this.message = '取得失敗'
+                this.display = true
               }
             })
-        })
-        .catch((err) => {
-          alert(err)
+            .catch((err) => {
+              // alert(err)
+              // 21番 ダイアログ
+              this.message = err
+              this.display = true
+            }) */
         })
     }
   }
