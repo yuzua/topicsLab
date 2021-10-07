@@ -40,6 +40,9 @@ import axios from '@/supports/axios'
 // 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
 
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
+
 export default {
   name: 'user',
   components: {
