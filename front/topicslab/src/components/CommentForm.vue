@@ -50,7 +50,6 @@ export default {
         this.message = '未記入(空白のみ)は送信できません。'
         return
       }
-
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.post('/api/comment', {
@@ -67,13 +66,11 @@ export default {
               }
             })
             .catch((err) => {
-              console.log(err)
-              this.message = '送信に失敗しました。'
+              this.message = err
               this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
           this.message = err
           this.display = true
         })

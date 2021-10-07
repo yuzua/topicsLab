@@ -1,8 +1,24 @@
 <template>
   <div>
+    <!-- 21番 ダイアログの処理 -->
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #content>
         {{user.name}}
+        <TabView>
+          <TabPanel header="トピック">
+            topics
+          </TabPanel>
+          <TabPanel header="コメント">
+            comments
+          </TabPanel>
+        </TabView>
       </template>
     </Card>
     <template>
@@ -21,12 +37,22 @@
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'user',
+  components: {
+   // 21番 ダイアログ
+    Dialog,
+    TabView,
+    TabPanel
+  },
   data () {
     return {
       id: null,
+      // 21番 ダイアログ
+      comment: '',
       user: {}
     }
   },
@@ -43,6 +69,10 @@ export default {
     this.getUser()
   },
   methods: {
+    // 21番 ダイアログ
+    closeBasic () {
+      this.display = false
+    },
     getUser () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
@@ -52,15 +82,24 @@ export default {
               if (res.status === 200) {
                 this.user = res.data
               } else {
-                console.log('取得失敗')
+                // console.log('取得失敗')
+                // 21番 ダイアログ
+                this.message = '取得失敗'
+                this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
+              // console.log(err)
+              // 21番 ダイアログ
+              this.message = err
+              this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     }
   }
