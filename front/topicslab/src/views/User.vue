@@ -8,6 +8,9 @@
     <template>
       <TabView :activeIndex="activeIndex">
         <TabPanel header="トピック">
+
+          <!-- {{topic.title}} -->
+
         </TabPanel>
         <TabPanel header="コメント">
         </TabPanel>

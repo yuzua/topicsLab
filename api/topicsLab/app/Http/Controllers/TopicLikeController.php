@@ -12,6 +12,7 @@ class TopicLikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -36,7 +37,15 @@ class TopicLikeController extends Controller
     public function store(Request $request)
     {
         //
+        $user = $request->user();
+        $topic = Topic::find($request->topicId);
+
+        $topic_likes = new Topic_likes()
+        $topic_likes->save();
+
+        return $topic_likes;
     }
+
 
     /**
      * Display the specified resource.
@@ -82,4 +91,5 @@ class TopicLikeController extends Controller
     {
         //
     }
+
 }
