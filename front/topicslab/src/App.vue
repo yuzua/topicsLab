@@ -11,8 +11,8 @@
   <div class="content">
     <router-view/>
   </div>
-  <footer>
-    <p class="copyright">&copy; 2021 TopicsLab</p>
+  <footer class="copyright">
+    <p>&copy; 2021 TopicsLab</p>
   </footer>
 </template>
 
@@ -69,5 +69,10 @@ body {
       color: #42b983;
     }
   }
+}
+
+.copyright {
+  text-align: center;
+  padding-bottom: 10pc;
 }
 </style>

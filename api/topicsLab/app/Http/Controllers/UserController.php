@@ -92,8 +92,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // idの値にdestroyを実行
     public function destroy($id)
     {
-        //
+        $user->softDeletes();
+
+       /* use SoftDeletes;{
+            
+        protected $dates = ['deleted_at'];
+        } */
     }
 }
+?>

@@ -14,12 +14,12 @@
       </template>
       <template #content>
         {{user.name}}
-      </template>
-      <template>
-        <TabView :activeIndex="activeIndex">
+        <TabView>
           <TabPanel header="トピック">
+            {{user.id}}
           </TabPanel>
           <TabPanel header="コメント">
+            {{user.id}}
           </TabPanel>
         </TabView>
       </template>
@@ -39,13 +39,16 @@ import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Userself',
-  // 21番 ダイアログ
   components: {
+    TabView,
+    TabPanel,
+    // 21番 ダイアログ
     Dialog
   },
   data () {
     return {
       user: {},
+      data: {},
       // 21番 ダイアログ
       message: ''
     }
@@ -57,6 +60,7 @@ export default {
     }
 
     this.getUser()
+    this.getData()
   },
   methods: {
     // 21番 ダイアログ
@@ -90,12 +94,15 @@ export default {
         })
     },
     withdraw () {
-      /*      axios.get('/sanctum/csrf-cookie')
+      axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.post('/api/logout')
+          axios.get('/api/withdraw')
+          // /api/withdrawに接続成功時
             .then(res => {
               console.log(res)
-              localStorage.setItem('authenticated', 'false')
+              // キー：'authenticated', バリュー：'false'を削除
+              localStorage.removeItem('authenticated', 'false')
+              // urlをホーム画面へ遷移
               this.$router.push('/')
             })
             .catch(err => {
@@ -104,14 +111,14 @@ export default {
         })
         .catch((err) => {
           alert(err)
-        }) */
-
+        })
     },
     getUser () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.get('/api/user')
             .then((res) => {
+              console.log(res)
               if (res.status === 200) {
                 this.user = res.data
               } else {
@@ -127,6 +134,23 @@ export default {
           // 21番 ダイアログ
           this.message = err
           this.display = true
+        })
+    },
+    getData () {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get(`/api/user/${this.id}`)
+            .then((res) => {
+              console.log(res)
+              if (res.status === 200) {
+                this.data = res.data
+              } else {
+                console.log('取得失敗')
+              }
+            })
+        })
+        .catch((err) => {
+          alert(err)
         })
     }
   }
