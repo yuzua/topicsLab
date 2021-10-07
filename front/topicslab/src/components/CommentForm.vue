@@ -60,6 +60,7 @@ export default {
               if (res.status === 201) {
                 this.comment = ''
                 this.$emit('sentComment', res.data)
+                this.skeleton = false
               } else {
                 this.message = '送信に失敗しました。'
                 this.display = true

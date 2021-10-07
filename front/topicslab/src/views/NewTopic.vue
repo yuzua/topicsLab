@@ -24,6 +24,7 @@
   <!-- 21番ダイアログの処理 -->
   <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
             <p>{{messages.submit}}</p>
+            <p>{{messages.title}}</p>
             <template #footer>
                 <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
                 <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
@@ -80,6 +81,7 @@ export default {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.post('/api/topic', {
+            // ここがデータを渡している
             title: title,
             body: body
           })
@@ -96,6 +98,7 @@ export default {
               // console.log(err)
               // 21番 ダイアログ
               this.messages.submit = err
+              this.messages.title = '実験中'
               this.display = true
             })
         })

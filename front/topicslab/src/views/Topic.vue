@@ -10,10 +10,14 @@
     </Dialog>
     <Card>
       <template #title>
-        {{topic.title}}
+        <div v-if="skeleton"><Skeleton height="2rem" class="p-mb-2" /></div>
+        <div v-else>{{topic.title}}</div>
       </template>
       <template #content>
-        <div class="body-text">
+        <div class="body-text" v-if="skeleton">
+          <Skeleton class="p-mb-2" />
+        </div>
+        <div class="body-text" v-else>
           {{topic.body}}
         </div>
         <!-- いいねボタンを表示 -->
@@ -37,6 +41,7 @@ import Comments from '@/components/Comments'
 import CommentForm from '@/components/CommentForm'
 // 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'Topic',
@@ -44,12 +49,14 @@ export default {
   components: {
     Comments,
     CommentForm,
-    Dialog
+    Dialog,
+    Skeleton
   },
   data () {
     return {
       // 21番 ダイアログ
       display: false,
+      skeleton: true,
       topic: {},
       user: {},
       comments: [],
@@ -84,6 +91,9 @@ export default {
                 this.user = this.topic.user
                 this.comments.splice(0)
                 this.comments.push(...this.topic.comments)
+                this.skeleton = false
+                // this.skeleton.push(...this.topic.skeleton)
+                // this.skeleton.push(...this.skeleton)
               } else {
                 // console.log('取得失敗')
                 // 21番 ダイアログ
@@ -108,6 +118,9 @@ export default {
     receiveComment (comment) {
       this.comments.push(comment)
     }
+    // receiveSkelton (skeleton) {
+    //   this.skeleton.push(skeleton)
+    // }
   }
 }
 </script>

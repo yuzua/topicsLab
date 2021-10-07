@@ -9,12 +9,21 @@
     </Dialog>
     <Card v-for="topic in topics" :key="topic.id">
         <template #content>
-          <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
-          <h2>
-            <router-link :to="`/topic/${topic.id}`">
-              {{topic.title}}
-            </router-link>
-          </h2>
+          <div v-if="skeleton">
+            <Skeleton height="4rem" class="p-mb-2" />
+            <span class="topic-date">投稿日：<Skeleton width="10rem" class="p-mb-2" /></span>
+            <h2>
+                <Skeleton height="2rem" class="p-mb-2" />
+            </h2>
+          </div>
+          <div v-else>
+            <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
+            <h2>
+              <router-link :to="`/topic/${topic.id}`">
+                {{topic.title}}
+              </router-link>
+            </h2>
+          </div>
         </template>
     </Card>
   </div>
@@ -25,18 +34,21 @@ import axios from '@/supports/axios'
 import moment from 'moment'
 // 21番 ダイアログのインポート
 import Dialog from 'primevue/dialog'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'AllTopics',
   // 21番 ダイアログ
   components: {
-    Dialog
+    Dialog,
+    Skeleton
   },
   data () {
     return {
       topics: [],
       // 21番 ダイアログ
-      message: ''
+      message: '',
+      skeleton: true
     }
   },
   mounted () {
@@ -58,6 +70,7 @@ export default {
               if (res.status === 200) {
                 this.topics.splice(0)
                 this.topics.push(...res.data)
+                this.skeleton = false
               } else {
                 // console.log('取得失敗')
                 // 21番 ダイアログ
