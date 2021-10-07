@@ -62,3 +62,8 @@ Route::middleware('auth:sanctum')->get('/user/{user}', [
     App\Http\Controllers\UserController::class,
     'show'
 ]);
+
+Route::middleware('auth:sanctum')->get('/topiclike', [
+    App\Http\Controllers\TopicLikeController::class,
+    'store'
+]);
