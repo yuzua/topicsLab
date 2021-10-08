@@ -11,14 +11,13 @@ class TopicLike extends Model
 
     protected $fillable = ['topic_id','user_id'];
 
-  public function topic()
-  {
-    return $this->belongsTo(Reply::class);
-  }
+    public function topic()
+    {
+        return $this->belongsTo(Reply::class);
+    }
 
-  public function user()
-  {
-    return $this->belongsTo(User::class);
-  }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

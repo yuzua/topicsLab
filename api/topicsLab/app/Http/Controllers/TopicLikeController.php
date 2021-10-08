@@ -38,8 +38,7 @@ class TopicLikeController extends Controller
     // いいねをデータベースに保存
     public function store(Request $request)
     {
-
-
+        //
     }
 
 
@@ -87,5 +86,4 @@ class TopicLikeController extends Controller
     {
         //
     }
-
 }
