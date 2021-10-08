@@ -10,13 +10,38 @@
     </Dialog>
     <Card>
       <template #content>
-        {{user.name}}
+        <div v-if="skeleton">
+          <Skeleton width="10rem" class="p-mb-2" />
+        </div>
+        <div v-else>
+          {{user.name}}
+        </div>
         <TabView>
           <TabPanel header="トピック">
-            {{this.id}}
+            <div v-if="skeleton">
+              <p v-for="n of 3" :key="n">
+                <Skeleton width="10rem" class="p-mb-2" />
+                <br>
+              </p>
+            </div>
+            <p v-for="topic in user.topics" :key="topic.id" v-else>
+              <router-link :to="`/topic/${topic.id}`">
+                {{topic.body}}
+              </router-link>
+            </p>
           </TabPanel>
           <TabPanel header="コメント">
-            {{user.id}}
+            <div v-if="skeleton">
+              <p v-for="n of 5" :key="n">
+                <Skeleton width="10rem" class="p-mb-2" />
+                <br>
+              </p>
+            </div>
+            <p v-for="comment in user.comments" :key="comment.id" v-else>
+              <router-link :to="`/topic/${comment.topic_id}`">
+                {{comment.body}}
+              </router-link>
+            </p>
           </TabPanel>
         </TabView>
       </template>
@@ -31,6 +56,7 @@ import Dialog from 'primevue/dialog'
 
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'user',
@@ -38,6 +64,7 @@ export default {
   // 21番 ダイアログ
     Dialog,
     TabView,
+    Skeleton,
     TabPanel
   },
   data () {
@@ -45,7 +72,9 @@ export default {
       id: null,
       // 21番 ダイアログ
       comment: '',
-      user: {}
+      display: false,
+      skeleton: true,
+      user: []
     }
   },
   mounted () {
@@ -73,6 +102,7 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.user = res.data
+                this.skeleton = false
               } else {
                 // console.log('取得失敗')
                 // 21番 ダイアログ

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return User::with('topics', 'comments')->find($request->user()->id);
+    $user = $request->user();
+    return User::with('topics', 'comments')->find($user->id);
 });
 
 Route::post('/login', [

@@ -13,12 +13,32 @@
         マイページ
       </template>
       <template #content>
-        {{user.name}}
         <TabView>
           <TabPanel header="トピック">
-           u
+            <div v-if="skeleton">
+              <p v-for="n of 3" :key="n">
+                <Skeleton width="10rem" class="p-mb-2" />
+                <br>
+              </p>
+            </div>
+            <p v-for="topic in user.topics" :key="topic.id" v-else>
+              <router-link :to="`/topic/${topic.id}`">
+                {{topic.body}}
+              </router-link>
+            </p>
           </TabPanel>
           <TabPanel header="コメント">
+            <div v-if="skeleton">
+              <p v-for="n of 5" :key="n">
+                <Skeleton width="10rem" class="p-mb-2" />
+                <br>
+              </p>
+            </div>
+            <p v-for="comment in user.comments" :key="comment.id" v-else>
+              <router-link :to="`/topic/${comment.topic_id}`">
+                {{comment.body}}
+              </router-link>
+            </p>
           </TabPanel>
         </TabView>
       </template>
@@ -38,6 +58,7 @@ import Dialog from 'primevue/dialog'
 
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Skeleton from 'primevue/skeleton'
 
 export default {
   name: 'Userself',
@@ -45,15 +66,17 @@ export default {
     TabView,
     TabPanel,
     // 21番 ダイアログ
-    Dialog
+    Dialog,
+    Skeleton
   },
   data () {
     return {
-      user: {},
-      data: {},
-      display: false,
+      user: [],
       // 21番 ダイアログ
-      message: ''
+      display: false,
+      skeleton: true,
+      message: '',
+      id: null
     }
   },
   mounted () {
@@ -61,8 +84,8 @@ export default {
       this.$router.push('login')
       return
     }
-
     this.getUser()
+    // this.getData()
   },
   methods: {
     // 21番 ダイアログ
@@ -123,6 +146,7 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.user = res.data
+                this.skeleton = false
               } else {
                 // console.log('取得失敗')
                 // 21番 ダイアログ
@@ -137,30 +161,38 @@ export default {
           this.message = err
           this.display = true
         })
-    },
-    getData () {
-      axios.get('/sanctum/csrf-cookie')
-        .then(() => {
-          axios.get(`/api/user/${this.user}`)
-            .then((res) => {
-              console.log(res)
-              if (res.status === 200) {
-                this.data = res.data
-              } else {
-                // console.log('取得失敗')
-                // 21番 ダイアログ
-                this.message = '取得失敗'
-                this.display = true
-              }
-            })
-            .catch((err) => {
-              // alert(err)
-              // 21番 ダイアログ
-              this.message = err
-              this.display = true
-            }) */
-        })
     }
+    // getData () {
+    //   axios.get('/sanctum/csrf-cookie')
+    //     .then(() => {
+    //       axios.get(`/api/user/${this.id}`)
+    //         .then((res) => {
+    //           console.log(res)
+    //           if (res.status === 200) {
+    //             this.data = res.data
+    //           } else {
+    //             // console.log('取得失敗')
+    //             // 21番 ダイアログ
+    //             this.message = '取得失敗'
+    //             this.display = true
+    //           }
+    //         })
+    //         .catch((err) => {
+    //           // console.log(err)
+    //           // 21番 ダイアログ
+    //           this.message = err
+    //           this.message = '失敗'
+    //           this.display = true
+    //         })
+    //     })
+    //     .catch((err) => {
+    //       // alert(err)
+    //       // 21番 ダイアログ
+    //       this.message = err
+    //       this.message = 'ネットワークエラー'
+    //       this.display = true
+    //     })
+    // }
   }
 }
 </script>
