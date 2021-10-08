@@ -19,16 +19,23 @@
         <TabView>
           <TabPanel header="トピック">
             <div v-if="skeleton">
-              <p v-for="n of 3" :key="n">
-                <Skeleton width="10rem" class="p-mb-2" />
-                <br>
-              </p>
+                <p v-for="n of 3" :key="n">
+                  <Skeleton width="10rem" class="p-mb-2" />
+                  <br>
+                </p>
             </div>
-            <p v-for="topic in user.topics" :key="topic.id" v-else>
-              <router-link :to="`/topic/${topic.id}`">
-                {{topic.body}}
-              </router-link>
-            </p>
+            <div v-else>
+              <div v-if="user.topics.length">
+                <p v-for="topic in user.topics" :key="topic.id">
+                  <router-link :to="`/topic/${topic.id}`">
+                    {{topic.body}}
+                  </router-link>
+                </p>
+              </div>
+              <div v-else>
+                <p>何もありません</p>
+              </div>
+            </div>
           </TabPanel>
           <TabPanel header="コメント">
             <div v-if="skeleton">
@@ -37,11 +44,18 @@
                 <br>
               </p>
             </div>
-            <p v-for="comment in user.comments" :key="comment.id" v-else>
-              <router-link :to="`/topic/${comment.topic_id}`">
-                {{comment.body}}
-              </router-link>
-            </p>
+            <div v-else>
+              <div v-if="user.comments">
+                <p v-for="comment in user.comments" :key="comment.id">
+                  <router-link :to="`/topic/${comment.topic_id}`">
+                    {{comment.body}}
+                  </router-link>
+                </p>
+              </div>
+              <div v-else>
+                <p>何もありません</p>
+              </div>
+            </div>
           </TabPanel>
         </TabView>
       </template>
