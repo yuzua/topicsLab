@@ -22,7 +22,7 @@
               </p>
             </div>
             <div v-if="user.topic.length">
-              <p v-for="topic in user.topics" :key="topic.id" v-else>
+              <p v-for="topic in user.topics" :key="topic.id">
                   <router-link :to="`/topic/${topic.id}`">
                     {{topic.body}}
                   </router-link>
