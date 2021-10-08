@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\TopicLike;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class TopicLikeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -34,40 +34,32 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // いいねをデータベースに保存
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        return $user;
+        //
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  User  $user
+     * @param  \App\Models\TopicLike  $topicLike
      * @return \Illuminate\Http\Response
      */
-    // public function show(User $user)
-    // {
-    //     return $user;
-    // }
-
-    public function show(User $user)
+    public function show(Request $request)
     {
-        return User::with('topics', 'comments')->find($user->id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\TopicLike  $topicLike
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TopicLike $topicLike)
     {
         //
     }
@@ -76,10 +68,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\TopicLike  $topicLike
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TopicLike $topicLike)
     {
         //
     }
@@ -87,15 +79,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\TopicLike  $topicLike
      * @return \Illuminate\Http\Response
      */
-
-    // requestのデータ を受け取る
-    public function destroy(Request $request)
+    public function destroy(TopicLike $topicLike)
     {
-        // $userを$requestから定義
-        $user = $request->user();
-        $user->delete();
+        //
     }
 }

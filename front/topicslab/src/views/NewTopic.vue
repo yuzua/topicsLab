@@ -1,35 +1,52 @@
 <template>
   <Card>
     <template #title>
-      新しいTopicを投稿しよう
+      新しいトピックを投稿しよう
     </template>
     <template #content>
       <div class="p-field">
-        <label for="title">Topicタイトル</label>
+        <label for="title">トピックタイトル</label>
         <InputText v-model="title" id="title" type="text" aria-describedby="title-help" />
         <small id="title-help">タイトルを入力してください。</small>
-        <p>{{messages.title}}</p>
+        <span class="messages">{{messages.title}}</span>
       </div>
       <div class="p-field">
-        <label for="title">Topic内容</label>
+        <label for="title">トピック内容</label>
         <Textarea v-model="body" :autoResize="true" rows="10" />
-        <p>{{messages.body}}</p>
+        <span class="messages">{{messages.body}}</span>
       </div>
       <div class="p-field">
-        <Button icon="pi pi-check" label="Save" v-on:click="submit" />
-        <p>{{messages.submit}}</p>
+        <Button icon="pi pi-check" label="保存" v-on:click="submit" />
+        <span class="messages">{{messages.submit}}</span>
       </div>
     </template>
   </Card>
+  <!-- 21番ダイアログの処理 -->
+  <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{messages.submit}}</p>
+            <p>{{messages.title}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+  </Dialog>
 </template>
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'NewTopic',
+  // 21番 ダイアログ
+  components: {
+    Dialog
+  },
   data () {
     return {
+      // 21番 ダイアログ
+      display: false,
       title: '',
       body: '',
       messages: {
@@ -45,6 +62,10 @@ export default {
     }
   },
   methods: {
+    // 21番 ダイアログ
+    closeBasic () {
+      this.display = false
+    },
     submit () {
       const title = this.title.trim()
       if (!title) {
@@ -60,6 +81,7 @@ export default {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
           axios.post('/api/topic', {
+            // ここがデータを渡している
             title: title,
             body: body
           })
@@ -67,16 +89,24 @@ export default {
               if (res.status === 201) {
                 this.$router.push(`/topic/${res.data.id}`)
               } else {
+                // 21番 ダイアログ
                 this.messages.submit = '送信に失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
-              this.messages.submit = '送信に失敗しました。'
+              // console.log(err)
+              // 21番 ダイアログ
+              this.messages.submit = err
+              this.messages.title = '実験中'
+              this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.messages.submit = err
+          this.display = true
         })
     }
   }
@@ -87,5 +117,9 @@ export default {
 .p-field * {
   display: block;
   width: 100%;
+}
+
+.messages {
+  color: red;
 }
 </style>

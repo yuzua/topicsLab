@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user();
+    return User::with('topics', 'comments')->find($user->id);
 });
 
 Route::post('/login', [
@@ -31,6 +34,11 @@ Route::post('/register', [
 Route::post('/logout', [
     App\Http\Controllers\LoginController::class,
     'logout'
+]);
+
+Route::get('/withdraw', [
+    App\Http\Controllers\UserController::class,
+    'destroy'
 ]);
 
 Route::get('/topics', [
@@ -56,4 +64,9 @@ Route::middleware('auth:sanctum')->post('/topic', [
 Route::middleware('auth:sanctum')->get('/user/{user}', [
     App\Http\Controllers\UserController::class,
     'show'
+]);
+
+Route::middleware('auth:sanctum')->get('/topiclike', [
+    App\Http\Controllers\TopicLikeController::class,
+    'store'
 ]);

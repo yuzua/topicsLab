@@ -2,10 +2,10 @@
 ### 作業進捗
 * 月曜日分
 ```
-1　　齋藤
-2	中野さん
-3,5	 山口さん
-4,6,7 岩井さん
+1　　齋藤 123
+2	中野さん ◯
+3,5	 山口さん ◎1
+4,6,7 岩井さん◯
 ```
 ### 環境設定コマンド
 ```
@@ -22,7 +22,7 @@ $docker-compose exec front /bin/bash
 ```
 ### 開発開始コマンド
 ```
-$git pull origin feature
+$git pull remote feature
 $docker-compose up
 $docker-compose exec front /bin/bash
     $yarn serve
