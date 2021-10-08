@@ -34,16 +34,12 @@ class TopicLikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // いいねをデータベースに保存
     public function store(Request $request)
     {
-        //
-        $user = $request->user();
-        $topic = Topic::find($request->topicId);
 
-        $topic_likes = new Topic_likes()
-        $topic_likes->save();
 
-        return $topic_likes;
     }
 
 
@@ -53,7 +49,7 @@ class TopicLikeController extends Controller
      * @param  \App\Models\TopicLike  $topicLike
      * @return \Illuminate\Http\Response
      */
-    public function show(TopicLike $topicLike)
+    public function show(Request $request)
     {
         //
     }

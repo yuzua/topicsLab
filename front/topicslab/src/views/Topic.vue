@@ -79,7 +79,19 @@ export default {
     }
     this.getTopic()
   },
+
   methods: {
+    // いいねボタンをクリック
+    favorite () {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get('/api/topiclike')
+            .then((res) => {
+
+            })
+        })
+    },
+
     // 21番 ダイアログ
     closeBasic () {
       this.display = false
