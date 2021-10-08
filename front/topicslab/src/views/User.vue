@@ -45,7 +45,7 @@
               </p>
             </div>
             <div v-else>
-              <div v-if="user.comments">
+              <div v-if="user.comments.length">
                 <p v-for="comment in user.comments" :key="comment.id">
                   <router-link :to="`/topic/${comment.topic_id}`">
                     {{comment.body}}
