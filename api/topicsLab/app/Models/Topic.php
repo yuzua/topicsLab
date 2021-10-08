@@ -24,9 +24,8 @@ class Topic extends Model
         return $query->select(['id', 'title', 'created_at']);
     }
 
-    public function topic_likes()
-  {
-    return $this->hasMany(Topic_like::class, 'topic_id');
-  }
-
+    public function topic_likes() // phpcs:ignore
+    {
+        return $this->hasMany(Topic_like::class, 'topic_id');
+    }
 }
