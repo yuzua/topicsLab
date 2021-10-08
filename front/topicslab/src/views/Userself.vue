@@ -130,8 +130,18 @@ export default {
                 this.display = true
               }
             })
-
-          /* axios.get(`/api/user/${this.user.id}`)
+        })
+        .catch((err) => {
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
+        })
+    },
+    getData () {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get(`/api/user/${this.user}`)
             .then((res) => {
               console.log(res)
               if (res.status === 200) {

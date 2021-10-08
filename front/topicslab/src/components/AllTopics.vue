@@ -7,16 +7,32 @@
                 <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
             </template>
     </Dialog>
-    <Card v-for="topic in topics" :key="topic.id">
+    <div v-if="skeleton">
+    <Card>
         <template #content>
-          <div v-if="skeleton">
-            <Skeleton height="4rem" class="p-mb-2" />
+          <div>
             <span class="topic-date">投稿日：<Skeleton width="10rem" class="p-mb-2" /></span>
             <h2>
                 <Skeleton height="2rem" class="p-mb-2" />
             </h2>
           </div>
-          <div v-else>
+        </template>
+    </Card>
+    <Card>
+        <template #content>
+          <div>
+            <span class="topic-date">投稿日：<Skeleton width="10rem" class="p-mb-2" /></span>
+            <h2>
+                <Skeleton height="2rem" class="p-mb-2" />
+            </h2>
+          </div>
+        </template>
+    </Card>
+    </div>
+    <div v-else>
+    <Card v-for="topic in topics" :key="topic.id">
+        <template #content>
+          <div>
             <span class="topic-date">投稿日：{{moment(topic.created_at)}}</span>
             <h2>
               <router-link :to="`/topic/${topic.id}`">
@@ -26,6 +42,7 @@
           </div>
         </template>
     </Card>
+    </div>
   </div>
 </template>
 

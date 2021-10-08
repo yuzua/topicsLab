@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 
-
 class UserController extends Controller
 {
     /**
@@ -92,15 +91,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // idの値にdestroyを実行
-    public function destroy($id)
-    {
-        $user->softDeletes();
 
-       /* use SoftDeletes;{
-            
-        protected $dates = ['deleted_at'];
-        } */
+    // requestのデータ を受け取る
+    public function destroy(Request $request)
+    {
+        // $userを$requestから定義
+        $user = $request->user();
+        $user->delete();
     }
 }
 ?>

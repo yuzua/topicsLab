@@ -33,7 +33,7 @@
         </span>
       </template>
     </Card>
-    <Comments :comments="this.comments" />
+    <Comments :comments="this.comments" v-bind:skeleton="skeleton"/>
     <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
   </div>
 </template>
@@ -69,16 +69,15 @@ export default {
     }
   },
   mounted () {
+    if (localStorage.getItem('authenticated') !== 'true') {
+      this.$router.push('login')
+      return
+    }
     this.id = this.$route.params.id
     if (!this.id) {
       alert('不正なIDです。')
     }
     this.getTopic()
-    if (localStorage.getItem('authenticated') !== 'true') {
-      this.$router.push('login')
-      // return
-    }
-    // this.getUser()
   },
   methods: {
     // 21番 ダイアログ
