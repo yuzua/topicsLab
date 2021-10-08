@@ -158,7 +158,7 @@ export default {
               // 21番 ダイアログ
               this.message = err
               this.display = true
-            }) */
+            })
         })
     }
   }
