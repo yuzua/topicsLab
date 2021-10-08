@@ -21,11 +21,16 @@
                 <br>
               </p>
             </div>
-            <p v-for="topic in user.topics" :key="topic.id" v-else>
-              <router-link :to="`/topic/${topic.id}`">
-                {{topic.body}}
-              </router-link>
-            </p>
+            <div v-if="user.topic.length">
+              <p v-for="topic in user.topics" :key="topic.id" v-else>
+                  <router-link :to="`/topic/${topic.id}`">
+                    {{topic.body}}
+                  </router-link>
+              </p>
+            </div>
+            <div v-else>
+              <p>何もありません</p>
+            </div>
           </TabPanel>
           <TabPanel header="コメント">
             <div v-if="skeleton">
@@ -160,6 +165,29 @@ export default {
           // 21番 ダイアログ
           this.message = err
           this.display = true
+        })
+    },
+    getData () {
+      axios.get('/sanctum/csrf-cookie')
+        .then(() => {
+          axios.get(`/api/user/${this.user}`)
+            .then((res) => {
+              console.log(res)
+              if (res.status === 200) {
+                this.data = res.data
+              } else {
+                // console.log('取得失敗')
+                // 21番 ダイアログ
+                this.message = '取得失敗'
+                this.display = true
+              }
+            })
+            .catch((err) => {
+              // alert(err)
+              // 21番 ダイアログ
+              this.message = err
+              this.display = true
+            })
         })
     }
     // getData () {
