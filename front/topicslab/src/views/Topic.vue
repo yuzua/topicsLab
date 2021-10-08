@@ -33,7 +33,7 @@
         </span>
       </template>
     </Card>
-    <Comments :comments="this.comments" />
+    <Comments :comments="this.comments" v-bind:skeleton="skeleton"/>
     <CommentForm :topicId="this.topic.id" @sentComment="receiveComment" />
   </div>
 </template>

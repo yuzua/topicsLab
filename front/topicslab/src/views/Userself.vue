@@ -52,6 +52,7 @@ export default {
     return {
       user: {},
       data: {},
+      display: false,
       // 21番 ダイアログ
       message: ''
     }
@@ -142,7 +143,7 @@ export default {
     getData () {
       axios.get('/sanctum/csrf-cookie')
         .then(() => {
-          axios.get(`/api/user/${this.id}`)
+          axios.get(`/api/user/${this.user}`)
             .then((res) => {
               console.log(res)
               if (res.status === 200) {
