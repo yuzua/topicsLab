@@ -1,8 +1,16 @@
 <template>
   <div>
+    <!-- 21番ダイアログの処理 -->
+    <Dialog header="Header" v-model:visible="display" :style="{width: '50vw'}">
+            <p>{{message}}</p>
+            <template #footer>
+                <Button label="No" icon="pi pi-times" @click="closeBasic" class="p-button-text"/>
+                <Button label="Yes" icon="pi pi-check" @click="closeBasic" autofocus />
+            </template>
+    </Dialog>
     <Card>
       <template #title>
-        Register
+        登録
       </template>
       <template #content>
         <div class="fields">
@@ -21,7 +29,7 @@
         </div>
         <span>{{message}}</span>
         <div class="p-field">
-          <Button icon="pi pi-check" label="Register" v-on:click="register" />
+          <Button icon="pi pi-check" label="登録" v-on:click="register" />
         </div>
       </template>
     </Card>
@@ -30,11 +38,19 @@
 
 <script>
 import axios from '@/supports/axios'
+// 21番 ダイアログのインポート
+import Dialog from 'primevue/dialog'
 
 export default {
   name: 'Register',
+  // 21番 ダイアログ
+  components: {
+    Dialog
+  },
   data () {
     return {
+      // 21番 ダイアログ
+      display: false,
       name: '',
       email: '',
       password: '',
@@ -42,6 +58,10 @@ export default {
     }
   },
   methods: {
+    // 21番 ダイアログ
+    closeBasic () {
+      this.display = false
+    },
     register () {
       const name = this.name.trim()
       const email = this.email.trim()
@@ -61,17 +81,25 @@ export default {
             .then((res) => {
               if (res.status === 201) {
                 alert('ユーザー登録成功')
+                this.$router.push('/login')
               } else {
+                // 21番 ダイアログ
                 this.message = 'ユーザー登録に失敗しました。'
+                this.display = true
               }
             })
             .catch((err) => {
-              console.log(err)
-              this.message = 'ユーザー登録に失敗しました。'
+              // 21番 ダイアログ
+              // console.log(err)
+              this.message = err
+              this.display = true
             })
         })
         .catch((err) => {
-          alert(err)
+          // alert(err)
+          // 21番 ダイアログ
+          this.message = err
+          this.display = true
         })
     }
   }

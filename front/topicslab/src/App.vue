@@ -1,16 +1,19 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <router-link to="/">ホーム</router-link> |
     <template v-if="authenticated">
-      <a>mypage</a>
+      <a href="http://localhost:8080/mypage">マイページ</a>
     </template>
     <template v-else>
-      <router-link to="/login">login</router-link>
+      <router-link to="/login">ログイン</router-link>
     </template>
   </div>
   <div class="content">
     <router-view/>
   </div>
+  <footer class="copyright">
+    <p>&copy; 2021 TopicsLab</p>
+  </footer>
 </template>
 
 <script>
@@ -66,5 +69,10 @@ body {
       color: #42b983;
     }
   }
+}
+
+.copyright {
+  text-align: center;
+  padding-bottom: 10pc;
 }
 </style>
